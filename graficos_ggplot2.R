@@ -82,15 +82,15 @@ library(ggplot2)
 ggplot(data=data3, aes(x=anio, y=count, colour=genero2))+
   geom_point()
 #lineas
-library(ggplot2)
 ggplot(data=data3, aes(x=anio, y=count, colour=genero2))+
   geom_line()
 
 #facetado
-library(ggplot2)
 ggplot(data=data3, aes(x=anio, y=count, colour=genero2))+
   geom_point() +
   facet_wrap(~genero2)
 
+ggplot(data=data3, aes(x=anio, y=count, colour=genero2))+
+  geom_line() +
+  facet_wrap(~genero2)
 
-  
