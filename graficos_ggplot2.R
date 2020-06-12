@@ -9,7 +9,10 @@ dim(programadoras)
 
 ## cantidad de unidades académicas por anio
 table(programadoras$anio)
-
+------------------------------------------------------------------
+------------------------------------------------------------------
+------------ #estudiantes------------------------------------
+  
 library(dplyr)
 #mujeres
 mujeres<-programadoras %>%
@@ -60,25 +63,68 @@ data2
 # unimos por filas (solo generos femenino y masculino) NO INCLUIDOS LOS TOTALES 
 
 data3<-rbind(mujeres2, varones2)
-genero2<-c("f", "f", "f", "f", "f", "f", "m", "m", "m","m", "m", "m")
+genero<-c("f", "f", "f", "f", "f", "f", "m", "m", "m","m", "m", "m")
 data3<-cbind(data3, genero2)
 data3
 
 # graficar 
 #un solo grafico
 library(ggplot2)
-ggplot(data=data3, aes(x=anio, y=count, colour=genero2))+
+ggplot(data=data3, aes(x=anio, y=count, colour=genero))+
   geom_point()
 #lineas
-ggplot(data=data3, aes(x=anio, y=count, colour=genero2))+
+ggplot(data=data3, aes(x=anio, y=count, colour=genero))+
   geom_line()
 
 #facetado
-ggplot(data=data3, aes(x=anio, y=count, colour=genero2))+
+ggplot(data=data3, aes(x=anio, y=count, colour=genero))+
   geom_point() +
   facet_wrap(~genero2)
 
-ggplot(data=data3, aes(x=anio, y=count, colour=genero2))+
+ggplot(data=data3, aes(x=anio, y=count, colour=genero))+
   geom_line() +
   facet_wrap(~genero2)
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+--------------#ingresantes mujeres-----------------------------
+
+mujeres_ing<-programadoras %>%
+  select(niMujeres, anio) %>%
+  group_by(anio) %>%
+  summarize(ingresantes=sum(niMujeres))
+#varones 
+varones_ing<-programadoras %>%
+  select(niVarones, anio) %>%
+  group_by(anio) %>%
+  summarize(ingresantes=sum(niVarones))
+
+data_ing<-rbind(mujeres_ing, varones_ing)
+data_ing<-cbind(data_ing, genero2)
+data_ing
+
+ggplot(data=data_ing, aes(x=anio, y=ingresantes, colour=genero))+
+  geom_point()
+
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+-------------------#egresadas mujeres----------------------------
+#mujeres
+mujeres_eg<-programadoras %>%
+  select(egMujeres, anio) %>%
+  group_by(anio) %>%
+  summarize(egresadxs=sum(egMujeres))
+#varones 
+varones_eg<-programadoras %>%
+  select(egVarones, anio) %>%
+  group_by(anio) %>%
+  summarize(egresadxs=sum(egVarones))
+
+data_eg<-rbind(mujeres_eg, varones_eg)
+data_eg<-cbind(data_eg, genero2)
+data_eg
+
+ggplot(data=data_eg, aes(x=anio, y=egresadxs, colour=genero))+
+  geom_point()
+
 
