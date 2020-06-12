@@ -10,18 +10,6 @@ dim(programadoras)
 ## cantidad de unidades académicas por anio
 table(programadoras$anio)
 
-library(purrr)
-library(magrittr)
-library(tidyr)
-Mujeres<-programadoras %>%
-  split(.$anio)  %>%
-  map_dfc(~sum(.$estMujeres))
-
-Varones<-programadoras %>%
-  split(.$anio) %>%
-  map_df(~sum(.$estVarones))
-
-
 library(dplyr)
 #mujeres
 mujeres<-programadoras %>%
